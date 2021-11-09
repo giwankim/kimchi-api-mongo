@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { configValidationSchema } from 'config.schema';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: [`.env.stage.${process.env.STAGE}`],
+      validationSchema: configValidationSchema,
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
@@ -24,9 +26,6 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
         };
       },
     }),
-    // MongooseModule.forRoot('mongodb://localhost/kimchi', {
-    //   useUnifiedTopology: true,
-    // }),
     RestaurantsModule,
   ],
   controllers: [],

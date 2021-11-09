@@ -21,7 +21,6 @@ export class RestaurantsController {
   async createRestaurant(
     @Body() createRestaurantDto: CreateRestaurantDto,
   ): Promise<Restaurant> {
-    console.log('POST:', createRestaurantDto);
     return this.restaurantsService.createRestaurant(createRestaurantDto);
   }
 }
