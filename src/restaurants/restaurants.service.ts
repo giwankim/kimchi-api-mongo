@@ -10,6 +10,7 @@ import { Model } from 'mongoose';
 import { resourceLimits } from 'worker_threads';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { GetRestaurantFilterDto } from './dto/get-restaurants-filter.dto';
+import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant, RestaurantDocument } from './schemas/restaurant.schema';
 
 @Injectable()
@@ -40,7 +41,10 @@ export class RestaurantsService {
     try {
       return await this.restaurantModel.findOne({ id }).exec();
     } catch (error) {
-      this.logger.error(`Failed to get restaurant. ID: ${id}`, error.stack);
+      this.logger.error(
+        `Failed to find restaurant #${id}. ID: ${id}`,
+        error.stack,
+      );
       throw new InternalServerErrorException(error);
     }
   }
@@ -65,15 +69,29 @@ export class RestaurantsService {
     }
   }
 
+  async updateRestaurant(
+    id: string,
+    updateRestaurantDto: UpdateRestaurantDto,
+  ): Promise<Restaurant> {
+    this.logger.verbose(
+      `Updating restaurant #${id}. DATA: ${JSON.stringify(
+        updateRestaurantDto,
+      )}`,
+    );
+    const restaurant = await this.restaurantModel
+      .findOneAndUpdate({ id }, { $set: updateRestaurantDto }, { new: true })
+      .exec();
+    if (!restaurant) {
+      throw new NotFoundException(`Restaurant #"${id}" not found`);
+    }
+    return restaurant;
+  }
+
   async deleteRestaurant(id: string) {
-    try {
-      const result = await this.restaurantModel.deleteOne({ id });
-      if (result.deletedCount === 0) {
-        throw new NotFoundException(`Restaurant with ID "${id}" not found`);
-      }
-    } catch (error) {
-      this.logger.error(`Failed to delete restaurant. ID: {$id}`, error.stack);
-      throw new InternalServerErrorException(error);
+    const result = await this.restaurantModel.deleteOne({ id });
+    if (result.deletedCount === 0) {
+      this.logger.error(`Failed to find restaurant #${id}`);
+      throw new NotFoundException(`Restaurant #"${id}" not found`);
     }
   }
 }

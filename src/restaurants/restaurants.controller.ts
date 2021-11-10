@@ -6,10 +6,13 @@ import {
   Logger,
   NotFoundException,
   Param,
+  ParseUUIDPipe,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { GetRestaurantFilterDto } from './dto/get-restaurants-filter.dto';
+import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { RestaurantsService } from './restaurants.service';
 import { Restaurant } from './schemas/restaurant.schema';
 
@@ -43,7 +46,7 @@ export class RestaurantsController {
   }
 
   @Post()
-  async createRestaurant(
+  createRestaurant(
     @Body() createRestaurantDto: CreateRestaurantDto,
   ): Promise<Restaurant> {
     this.logger.verbose(
@@ -52,8 +55,21 @@ export class RestaurantsController {
     return this.restaurantsService.createRestaurant(createRestaurantDto);
   }
 
+  @Patch(':id')
+  updateRestaurant(
+    @Param('id') id: string,
+    @Body() updateRestaurantDto: UpdateRestaurantDto,
+  ): Promise<Restaurant> {
+    this.logger.verbose(
+      `Updating restuarant. ID: ${id}, Data: ${JSON.stringify(
+        updateRestaurantDto,
+      )}`,
+    );
+    return this.restaurantsService.updateRestaurant(id, updateRestaurantDto);
+  }
+
   @Delete(':id')
-  deleteRestaurant(@Param('id') id: string): Promise<void> {
+  deleteRestaurant(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
     this.logger.verbose(`Deleting a restaurant. ID: ${id}`);
     return this.restaurantsService.deleteRestaurant(id);
   }
