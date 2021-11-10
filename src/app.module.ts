@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { configValidationSchema } from 'config.schema';
 import { RestaurantsModule } from './restaurants/restaurants.module';
+import { ManufacturersModule } from './manufacturers/manufacturers.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
       },
     }),
     RestaurantsModule,
+    ManufacturersModule,
   ],
   controllers: [],
   providers: [],

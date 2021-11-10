@@ -86,7 +86,7 @@ export class RestaurantsService {
     return restaurant;
   }
 
-  async deleteRestaurant(id: string) {
+  async deleteRestaurant(id: string): Promise<void> {
     const result = await this.restaurantModel.deleteOne({ id });
     if (result.deletedCount === 0) {
       this.logger.error(`Failed to find restaurant #${id}`);
