@@ -7,7 +7,6 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { resourceLimits } from 'worker_threads';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { GetRestaurantFilterDto } from './dto/get-restaurants-filter.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
