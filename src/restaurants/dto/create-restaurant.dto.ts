@@ -1,24 +1,15 @@
-import {
-  IsEnum,
-  IsNotEmpty,
-  IsOptional,
-  IsPositive,
-  IsString,
-} from 'class-validator';
+import { IsEnum, IsOptional, IsPositive, IsString } from 'class-validator';
 import { Cuisine } from '../enums/cuisine.enum';
 import { KimchiType } from '../enums/kimchi-type.enum';
 import { Restaurant } from '../schemas/restaurant.schema';
 
 export class CreateRestaurantDto {
-  @IsNotEmpty()
   @IsEnum(KimchiType)
   type_of_kimchi: KimchiType;
 
-  @IsNotEmpty()
   @IsString()
   manufacturer: string;
 
-  @IsNotEmpty()
   @IsPositive()
   consumption_amount: number;
 
@@ -30,7 +21,6 @@ export class CreateRestaurantDto {
   @IsString()
   district?: string;
 
-  @IsNotEmpty()
   @IsString()
   address: string;
 
@@ -42,15 +32,12 @@ export class CreateRestaurantDto {
   @IsString()
   postal_code?: string;
 
-  @IsNotEmpty()
   @IsString()
   name: string;
 
-  @IsNotEmpty()
   @IsPositive()
   area: number;
 
-  @IsNotEmpty()
   @IsEnum(Cuisine)
   cuisine: Cuisine;
 
