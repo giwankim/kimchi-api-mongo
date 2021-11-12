@@ -28,4 +28,8 @@ export class CreateManufacturerDto {
 
   @IsString()
   name: string;
+
+  @IsOptional()
+  @IsString()
+  phone?: string;
 }

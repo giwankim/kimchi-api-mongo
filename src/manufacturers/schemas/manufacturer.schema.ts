@@ -45,6 +45,9 @@ export class Manufacturer {
   @Prop({ required: true })
   name: string;
 
+  @Prop()
+  phone: string;
+
   @Prop({ required: true, default: false })
   approved: boolean;
 

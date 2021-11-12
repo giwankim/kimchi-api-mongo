@@ -51,6 +51,9 @@ export class Restaurant {
   @Prop({ required: true })
   name: string;
 
+  @Prop()
+  phone: string;
+
   @Prop({ type: mongoose.Schema.Types.Decimal128, required: true })
   area: number;
 

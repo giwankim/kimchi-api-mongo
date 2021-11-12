@@ -35,6 +35,10 @@ export class CreateRestaurantDto {
   @IsString()
   name: string;
 
+  @IsOptional()
+  @IsString()
+  phone?: string;
+
   @IsPositive()
   area: number;
 
