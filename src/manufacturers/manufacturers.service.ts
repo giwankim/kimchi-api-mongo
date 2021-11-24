@@ -48,7 +48,7 @@ export class ManufacturersService {
     const manufacturer = new this.manufacturerModel({
       ...createManufacturerDto,
       version: this.configService.get('VERSION'),
-      certified_all_korean: false,
+      // certified_all_korean: false,
     });
     return manufacturer.save();
   }

@@ -5,6 +5,9 @@ export class CreateManufacturerDto {
   daily_production_amount: number;
 
   @IsBoolean()
+  certified_all_korean: boolean;
+
+  @IsBoolean()
   certified_traditional_food: boolean;
 
   @IsOptional()
